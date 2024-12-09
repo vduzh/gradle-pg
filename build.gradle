@@ -5,15 +5,12 @@
  * Learn more about Gradle by exploring our Samples at https://docs.gradle.org/8.10.2/samples
  */
 
-/*
 allprojects {
     group = 'by.vduzh.gradle.core'
-    version = '1.0-SNAPSHOT'
-    apply plugin: "idea"
+    //  version = '1.0-SNAPSHOT'
 
     repositories {
-        gradlePluginPortal()
+        //gradlePluginPortal()
         mavenCentral()
     }
 }
-*/

@@ -5,6 +5,11 @@
  * Learn more about Gradle by exploring our Samples at https://docs.gradle.org/8.10.2/samples
  */
 
+plugins {
+    id 'java'
+}
+
 dependencies {
-    api project(':lib:dao')
+    implementation project(':lib:model')
+    implementation project(':lib:dao')
 }
