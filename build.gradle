@@ -4,3 +4,211 @@
  * This is a general purpose Gradle build.
  * Learn more about Gradle by exploring our Samples at https://docs.gradle.org/8.10.1/samples
  */
+
+println "config phase"
+println "gradle is: ${gradle.hashCode()}"
+println "root: ${rootProject.hashCode()}, ${project.hashCode()}"
+println "gradle.rootProject is: ${gradle.rootProject.hashCode()}"
+
+/*
+ * Tasks
+ *
+ * Project -> [Task1, Task2, ...]
+ */
+
+// task = new DefaultTask
+task("hello")
+
+// get the task
+// 1
+tasks.getByName("hello").description("hello task 1")
+// 2
+hello.description("hello task 2")
+
+// better
+hello {
+    description = "hello task 3"
+}
+// what is equivalent to
+hello.configure {
+    println "configuration phase of the hello task!"
+    description = "hello task 31"
+}
+
+// overridden method with closure
+task("hello1", {
+    println "configuration phase of the hello1 task!"
+    description = "hello task"
+
+})
+
+// overridden method with closure
+task("hello2") {
+    println "configuration phase of the hello2 task!"
+    description = "hello2 task"
+
+}
+
+task("hello333") {
+    println "configuration phase of the hello333 task!"
+    description = "hello333 task"
+}
+
+task "hello3332" {
+    println "configuration phase of the hello3332 task!"
+    description = "hello333 task"
+}
+
+task hello3333 {
+    println "configuration phase of the hello3333 task!"
+    description = "hello333 task"
+}
+
+//def m = [description: "hello3334 task"]
+//task hello3334(m)
+
+task hello3335(description: "hello3334 task")
+
+task hello3336(description: "hello3335 task") {
+    println "configuration phase of the hello3335 task!"
+    println "task actions: ${actions}"
+}
+
+/*
+ * Actions
+ *
+ * Task -> [Action1, Action2, ...]
+ */
+task foo {
+    // init task here
+    println "configuration phase of the foo task!"
+
+    doLast {
+        println "execution phase, Action 1"
+    }
+    doFirst {
+        println "execution phase, Action 2"
+    }
+    doLast {
+        println "execution phase, Action 3"
+    }
+}
+
+/*
+ * Task graph - task dependencies
+ */
+task task1 {
+    doLast {
+        println "Task 1 ..."
+    }
+}
+
+task task2 {
+    doLast {
+        println "Task 2 ..."
+    }
+}
+
+task task3 {
+    dependsOn task1
+
+    doLast {
+        println "Task 3 ..."
+    }
+}
+
+task task4 {
+    doLast {
+        println "Task 4 ..."
+    }
+}
+
+task task5 {
+    doLast {
+        println "Task 5 ..."
+    }
+}
+
+task4.dependsOn task2
+task5.dependsOn task4
+
+task task6 {
+    doLast {
+        println "Task 6 ..."
+    }
+}
+
+task task7 {
+    doLast {
+        println "Task 7 ..."
+    }
+}
+
+task6.finalizedBy task7
+
+
+task task11 {
+    doLast {
+        println "Task 11 ..."
+    }
+}
+
+task task12 {
+    doLast {
+        println "Task 12 ..."
+    }
+}
+
+task task13 {
+    doLast {
+        println "Task 13 ..."
+    }
+}
+
+task task14 {
+    doLast {
+        println "Task 14 ..."
+    }
+}
+
+task14.dependsOn([task11, task12, task13])
+task12.mustRunAfter task11
+
+/*
+ * Task graph - callbacks
+ */
+gradle.taskGraph.whenReady { TaskExecutionGraph graph ->
+    println "--- Graph:"
+    graph.allTasks.each {
+        println "${it.name}"
+    }
+}
+
+gradle.taskGraph.beforeTask { Task t ->
+    println "beforeTask callBack $t"
+
+    // we can add some logic
+    if (t.group == 'some') {
+        println "beforeTask callBack $t: doing some stuff"
+    }
+}
+
+gradle.taskGraph.afterTask { Task t ->
+    println "afterTask callBack $t"
+
+    // we can add some logic
+    if (t.group != 'some') {
+        println "afterTask callBack $t: doing some stuff"
+    }
+}
+
+/*
+ * Task - default task
+ */
+task defaultTask {
+    doLast {
+        println "defaulTask ..."
+    }
+}
+
+defaultTasks "defaultTask"
