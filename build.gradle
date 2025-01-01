@@ -304,5 +304,22 @@ sourceSets {
     }
 }
 
+configurations.runtimeClasspath.files.each(it -> println it)
+
+
+// update jar task to add a manifest file
+jar {
+    manifest {
+        attributes "Main-Class": "by.vduzh.gradle.HelloWorld"
+        //attributes "Main-Class: by.vduzh.gradle.HelloWorld"
+    }
+
+    // apply a strategy for the Licence files
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+
+    // build a fat jar
+    from (configurations.runtimeClasspath.files.collect(f -> zipTree(f)))
+}
+
 
 

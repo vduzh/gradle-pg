@@ -8,3 +8,7 @@ gradle help - call the help task
 # custom tasks
 gradle
 gradle hello
+
+# run an app in a fat jar
+- gradle assemble
+- java -jar gradle-starter.jar
