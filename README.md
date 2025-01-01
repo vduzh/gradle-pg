@@ -12,3 +12,8 @@ gradle hello
 # run an app in a fat jar
 - gradle assemble
 - java -jar gradle-starter.jar
+
+# run web app
+- gradle assemble
+- http://localhost:8080/gradle-starter
+- http://localhost:8080/gradle-starter/users
