@@ -1,5 +1,12 @@
 import java.time.LocalDate
 
+// old-fashioned
+//apply plugin: "java"
+// modern but impossible to load from script file
+plugins {
+    id "java"
+}
+
 // use a plugin located in a script file - just simple includes like a groove script
 apply from: "script.gradle"
 apply plugin: CustomPlugin
@@ -31,7 +38,6 @@ println "config phase"
 println "gradle is: ${gradle.hashCode()}"
 println "root: ${rootProject.hashCode()}, ${project.hashCode()}"
 println "gradle.rootProject is: ${gradle.rootProject.hashCode()}"
-
 
 /*
  * Tasks
