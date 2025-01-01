@@ -29,7 +29,14 @@ dependencies {
     // call methods an DependencyHandler object
     // add("implementation", [group: "org.springframework", name: "spring-webmvc", version: "5.3.9"])
     // add("implementation", "org.springframework:spring-webmvc:5.3.9")
-    implementation "org.springframework:spring-webmvc:5.3.9"
+    //implementation "org.springframework:spring-webmvc:5.3.9"
+    // exclude some transitive dependencies
+    implementation("org.springframework:spring-webmvc:5.3.9") {
+        //exclude(group: "org.springframework", module: "spring-aop")
+        // to exclude all transitive deps:
+        transitive(false)
+    }
+    implementation "org.springframework:spring-aop:5.3.9"
 }
 
 // Option 2: Plugins are as classes
