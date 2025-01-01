@@ -309,17 +309,25 @@ configurations.runtimeClasspath.files.each(it -> println it)
 
 // update jar task to add a manifest file
 jar {
+    def jars = configurations.runtimeClasspath.files.collect{f -> "lib/${f.name}"}
+
     manifest {
         attributes "Main-Class": "by.vduzh.gradle.HelloWorld"
         //attributes "Main-Class: by.vduzh.gradle.HelloWorld"
+
+        attributes "Class-Path": jars.join(" ")
     }
 
     // apply a strategy for the Licence files
-    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+    //duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
 
     // build a fat jar
-    from (configurations.runtimeClasspath.files.collect(f -> zipTree(f)))
+    //from (configurations.runtimeClasspath.files.collect{f -> zipTree(f))}
 }
 
+task copyAllDependencies(type: Copy) {
+    from (configurations.runtimeClasspath.files)
+    into("${buildDir}/libs/lib")
+}
 
-
+jar.dependsOn copyAllDependencies
