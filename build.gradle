@@ -11,6 +11,17 @@ plugins {
 apply from: "script.gradle"
 apply plugin: CustomPlugin
 
+// add repositories to retrieve third-party dependencies
+repositories {
+    // internal (company) maven repo to store the local dependencies which might be a proxy
+    maven {
+        name 'Nexus Repo'
+        url 'https://nexus.vduzh.by/repository/release'
+    }
+
+    mavenCentral()
+}
+
 // Option 2: Plugins are as classes
 class CustomPlugin implements Plugin<Project> {
     @Override
