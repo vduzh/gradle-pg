@@ -1,0 +1,28 @@
+// use a plugin located in a script file - just simple includes like a groove script
+apply from: "script.gradle"
+
+apply plugin: CustomPlugin
+
+// Option 2: Plugins are as classes
+class CustomPlugin implements Plugin<Project> {
+    @Override
+    void apply(Project project) {
+        addBuzzTask(project)
+    }
+
+    void addBuzzTask(Project project) {
+        def map = [description: "Buzz task"]
+        project.task(map, "buzz") {
+            println "configuration phase of the buzz task!"
+
+            doFirst {
+                println "execution phase, Action 1"
+            }
+
+            doLast {
+                println "execution phase, Action 2"
+            }
+        }
+    }
+}
+

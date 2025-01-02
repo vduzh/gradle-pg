@@ -1,19 +1,35 @@
-plugins {
-    id 'java'
-}
+import java.time.LocalDate
 
-group = 'by.vduzh.gradle'
-version = 'unspecified'
 
+// add repositories to retrieve third-party dependencies
 repositories {
+    // internal (company) maven repo to store the local dependencies which might be a proxy
+    maven {
+        name 'Nexus Repo'
+        url 'https://nexus.vduzh.by/repository/release'
+    }
     mavenCentral()
 }
 
-dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+println "config phase"
+println "gradle is: ${gradle.hashCode()}"
+println "root: ${rootProject.hashCode()}, ${project.hashCode()}"
+println "gradle.rootProject is: ${gradle.rootProject.hashCode()}"
+
+/*
+ * Properties
+ */
+ext {
+    javaVersion = 11
+    currentDate = LocalDate.now()
 }
 
-test {
-    useJUnitPlatform()
-}
+println project.ext.javaVersion
+println ext.javaVersion
+println javaVersion
+
+println "---- All props:"
+println project.properties
+println "---- System props:"
+println System.getProperties()
