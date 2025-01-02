@@ -1,0 +1,44 @@
+plugins {
+    id "java"
+}
+
+group = 'by.vduzh.gradle'
+
+dependencies {
+    implementation project(":sample:common:util")
+    implementation project(":sample:libs:model")
+    implementation project(":sample:libs:service")
+}
+
+jar {
+    def jars = configurations.runtimeClasspath.files.collect { f -> "lib/${f.name}" }
+    manifest {
+        attributes "Main-Class": "by.vduzh.gradle.app.libjar.HelloWorld"
+        attributes "Class-Path": jars.join(" ")
+    }
+}
+
+task copyAllDependencies(type: Copy) {
+    from(configurations.runtimeClasspath.files)
+    into(layout.buildDirectory.file("libs/lib"))
+}
+
+tasks.named('copyAllDependencies') {
+    dependsOn(
+            ':sample:common:util:jar',
+            ':sample:libs:model:jar',
+            ':sample:libs:service:jar'
+    )
+}
+
+jar.dependsOn copyAllDependencies
+
+task runJar(type: JavaExec) {
+    mainClass.set("by.vduzh.gradle.app.libjar.HelloWorld")
+
+    classpath = files(layout.buildDirectory.file("libs/${archivesBaseName}.jar")) +
+            fileTree(layout.buildDirectory.dir("libs/lib")) {
+                include "*.jar"
+            }
+}
+runJar.dependsOn build

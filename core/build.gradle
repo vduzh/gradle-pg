@@ -1,14 +1,16 @@
 import java.time.LocalDate
 
 
+subprojects {
 // add repositories to retrieve third-party dependencies
-repositories {
-    // internal (company) maven repo to store the local dependencies which might be a proxy
-    maven {
-        name 'Nexus Repo'
-        url 'https://nexus.vduzh.by/repository/release'
+    repositories {
+        // internal (company) maven repo to store the local dependencies which might be a proxy
+        maven {
+            name 'Nexus Repo'
+            url 'https://nexus.vduzh.by/repository/release'
+        }
+        mavenCentral()
     }
-    mavenCentral()
 }
 
 

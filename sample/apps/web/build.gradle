@@ -11,9 +11,9 @@ repositories {
 }
 
 dependencies {
-    implementation project(":common:util")
-    implementation project(":common:core")
-    implementation project(":service")
+    implementation project(":sample:common:util")
+    implementation project(":sample:libs:model")
+    implementation project(":sample:libs:service")
     compileOnly "jakarta.servlet:jakarta.servlet-api:5.0.0"
 
     testImplementation platform('org.junit:junit-bom:5.10.0')

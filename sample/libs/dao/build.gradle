@@ -1,16 +1,17 @@
 plugins {
-    id 'java'
+    id 'java-library'
 }
 
 group = 'by.vduzh.gradle'
-version = 'unspecified'
+// project version
+//version = 'unspecified'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation project(":database")
+    api project(":sample:libs:model")
 
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'

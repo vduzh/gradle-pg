@@ -1,9 +1,6 @@
 rootProject.name = 'gradle-starter'
 
 // Projects
-include 'common'
-include 'common:core'
-include 'common:util'
 include 'core'
 include 'core:plugin-java'
 include 'core:plugin-war'
@@ -11,12 +8,19 @@ include 'core:tasks'
 include 'core:plugins'
 include 'core:repositories'
 include 'core:dependencies'
-include 'database'
-include 'service'
-include 'web'
+include 'sample'
+include 'sample:common'
+include 'sample:common:util'
+include 'sample:libs'
+include 'sample:libs:model'
+include 'sample:libs:dao'
+include 'sample:libs:service'
+include 'sample:apps'
+include 'sample:apps:web'
+include 'sample:apps:lib-jar'
 
 println "init phase, settings file: ${toString()}"
-gradle.settingsEvaluated {
-    //
-}
+//gradle.settingsEvaluated {
+//    //
+//}
 
