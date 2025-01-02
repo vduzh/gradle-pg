@@ -17,3 +17,6 @@ gradle hello
 - gradle assemble
 - http://localhost:8080/gradle-starter
 - http://localhost:8080/gradle-starter/users
+
+# build module
+- gradle :database:assemble
