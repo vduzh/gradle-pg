@@ -1,4 +1,4 @@
-# gradle-core
+# gradle-pg
 
 gradle tasks - see a list of available tasks init - create a project
 gradle - call the help task
