@@ -5,12 +5,11 @@
  * Learn more about Gradle by exploring our Samples at https://docs.gradle.org/8.10.2/samples
  */
 
-allprojects {
-    group = 'by.vduzh.gradle.core'
-    //  version = '1.0-SNAPSHOT'
+plugins {
+    id 'java'
+}
 
-    repositories {
-        //gradlePluginPortal()
-        mavenCentral()
-    }
+dependencies {
+    implementation project(':lib:model')
+    implementation project(':lib:dao')
 }

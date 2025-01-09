@@ -1,0 +1,15 @@
+subprojects {
+    apply plugin: 'java'
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+
+//    dependencies {
+//        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+//        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    }
+
+//    test {
+//        useJUnitPlatform()
+//    }
+//}
+

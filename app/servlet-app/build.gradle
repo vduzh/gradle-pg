@@ -1,0 +1,18 @@
+
+plugins {
+    id 'war'
+}
+
+dependencies {
+    implementation 'jakarta.servlet:jakarta.servlet-api:5.0.0'
+    implementation project(":lib:model")
+    implementation project(":lib:service")
+}
+
+tasks.register('deployTomcat', Copy) {
+    from(war.archiveFile.get())
+    into("${tomcatPath}")
+}
+
+deployTomcat.dependsOn war
+assemble.dependsOn deployTomcat

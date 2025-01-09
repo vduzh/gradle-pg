@@ -1,0 +1,11 @@
+# Path
+tomcatPath=/users/vduzh/workspace/tools/apache-tomcat-10.1.33/webapps
+#outputPath=build/output
+
+# Logins
+#dbUsername=myuser
+#dbPassword=mypassword
+
+# Config
+#enableFeatureX=true
+#apiTimeout=30
