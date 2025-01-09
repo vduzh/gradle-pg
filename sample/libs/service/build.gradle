@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+
+group = 'by.vduzh.gradle'
+version = 'unspecified'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(":sample:libs:dao")
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    maxParallelForks 3
+    // enable JUnit 5
+    useJUnitPlatform()
+}
+
+test.finalizedBy jacocoTestReport
+jacocoTestReport.dependsOn test

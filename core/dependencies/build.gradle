@@ -1,0 +1,32 @@
+plugins {
+    id "java"
+}
+
+
+// add third-party dependencies
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.36'
+    annotationProcessor 'org.projectlombok:lombok:1.18.36'
+
+//    jakarta.servlet:jakarta.servlet-api:5.0.
+    compileOnly "jakarta.servlet:jakarta.servlet-api:5.0.0"
+
+    // import a BOM
+    implementation platform('org.springframework.boot:spring-boot-dependencies:2.5.3')
+
+    // call methods an DependencyHandler object
+    // add("implementation", [group: "org.springframework", name: "spring-webmvc", version: "5.3.9"])
+    // add("implementation", "org.springframework:spring-webmvc:5.3.9")
+    //implementation "org.springframework:spring-webmvc:5.3.9"
+    // exclude some transitive dependencies
+    implementation("org.springframework:spring-webmvc") {
+        //exclude(group: "org.springframework", module: "spring-aop")
+        // to exclude all transitive deps:
+        transitive(false)
+    }
+    // define dependencies without versions
+    implementation "org.springframework:spring-aop"
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.36'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.36'
+}

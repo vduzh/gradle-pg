@@ -1,0 +1,14 @@
+//group = 'by.vduzh.gradle'
+//version = 'unspecified'
+
+allprojects {
+    //group "by.vduzh.gradle"
+
+//    repositories {
+//        mavenCentral()
+//    }
+}
+
+subprojects {
+
+}

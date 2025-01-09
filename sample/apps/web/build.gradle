@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group = 'by.vduzh.gradle'
+//version = 'unspecified'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(":sample:common:util")
+    implementation project(":sample:libs:model")
+    implementation project(":sample:libs:service")
+    compileOnly "jakarta.servlet:jakarta.servlet-api:5.0.0"
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+war {
+    //archiveName "user-app.war"
+    //archiveFileName "user-app.war"
+}
+
+task deployToTomcat(type: Copy) {
+    from(war.archiveFile.get())
+    into("C:\\Tools\\apache-tomcat-10.1.34\\webapps")
+}
+
+deployToTomcat.dependsOn war
+assemble.dependsOn deployToTomcat

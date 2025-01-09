@@ -1,0 +1,7 @@
+// Option 1: Plugins are in a separate file
+
+task bar {
+    doLast {
+        println "Bar from a plugin in a script file is working ..."
+    }
+}

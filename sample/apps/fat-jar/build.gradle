@@ -1,0 +1,71 @@
+// old-fashioned
+//apply plugin: "java"
+
+// modern but impossible to load from script file
+plugins {
+    id "java"
+}
+
+group = 'by.vduzh.gradle'
+version = 'unspecified'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+// extend sourceSets with project specific artifacts
+sourceSets {
+    main {
+        java {
+            srcDir "$buildDir/generated-sources/querydsl"
+        }
+        resources {
+        }
+    }
+    test {
+    }
+}
+
+
+configurations.runtimeClasspath.files.each(it -> println it)
+
+
+// update jar task to add a manifest file
+jar {
+    def jars = configurations.runtimeClasspath.files.collect{f -> "lib/${f.name}"}
+
+    manifest {
+        attributes "Main-Class": "by.vduzh.gradle.HelloWorld"
+        //attributes "Main-Class: by.vduzh.gradle.HelloWorld"
+
+        attributes "Class-Path": jars.join(" ")
+    }
+
+    // apply a strategy for the Licence files
+    //duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+
+    // build a fat jar
+    //from (configurations.runtimeClasspath.files.collect{f -> zipTree(f))}
+}
+
+task copyAllDependencies(type: Copy) {
+    from (configurations.runtimeClasspath.files)
+    into("${buildDir}/libs/lib")
+}
+
+jar.dependsOn copyAllDependencies
